@@ -58,6 +58,43 @@ Los archivos descargados se guardan en la carpeta especificada, con nombres como
 - Las rutas de Windows se convierten automáticamente a formato WSL.
 - Si una URL no es válida, se ignora y se muestra una advertencia.
 
+## Troubleshooting
+
+Si sale un error como este:
+
+```text
+ERROR: fragment 1 not found, unable to continue
+WARNING: Unable to download format 233. Skipping...
+ERROR: [youtube] jd2krWBrZxc: Requested format is not available. Use --list-formats for a list of available formats
+```
+
+Posiblemente el sitio web donde está el video se actualizó afectando la descarga. Se recomienda actualizar a la última versión de yt-dlp en tu Linux/WSL:
+
+```bash
+sudo yt-dlp -U
+```
+
+O reinstalar completo:
+
+```bash
+# 1. Instala dependencias necesarias
+sudo apt update && sudo apt install -y curl ffmpeg
+
+# 2. Descarga el binario oficial de yt-dlp
+sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+    -o /usr/local/bin/yt-dlp
+
+# 3. Dale permisos de ejecución
+sudo chmod a+rx /usr/local/bin/yt-dlp
+
+# 4. Verifica versión instalada
+yt-dlp --version
+
+# 5. Prueba una descarga directa/manual (si esta funciona, el script también debe funcionar)
+yt-dlp <URL_DEL_VIDEO>
+
+```
+
 ## Licencia
 
 MIT

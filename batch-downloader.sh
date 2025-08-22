@@ -103,10 +103,10 @@ while IFS= read -r url || [[ -n $url ]]; do
     if [[ "$url" =~ ^https?:// ]]; then
         echo "📥 Descargando ($count): $url"
         # Ejecutar en modo silencioso (2>&1 no muestra stdout en la cli), pero si falla se ejecuta el mismo comando sin filtrar la salida para ver el error
-        if ! yt-dlp --no-overwrites --continue -o "$output_dir/${count}.%(title)s[%(id)s].%(ext)s" "$url" >/dev/null 2>&1 ; then 
+        if ! yt-dlp --no-overwrites --continue -f "bestvideo+bestaudio/best" --merge-output-format mkv -o "$output_dir/${count}.%(title)s[%(id)s].%(ext)s" "$url" >/dev/null 2>&1 ; then 
             echo "❌ Error al descargar: $url"
             echo "Mostrando salida completa:"
-            yt-dlp --no-overwrites --continue -o "$output_dir/${count}.%(title)s[%(id)s].%(ext)s" "$url"
+            yt-dlp --no-overwrites --continue -f "bestvideo+bestaudio/best" --merge-output-format mkv -o "$output_dir/${count}.%(title)s[%(id)s].%(ext)s" "$url"
         fi
 
         # Validar si realmente se generó un archivo con el prefijo correspondiente
